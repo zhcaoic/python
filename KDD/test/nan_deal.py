@@ -9,7 +9,7 @@ import pandas as pd
 from knn import knnFunction
 
 # open data file
-fname = "E:/KDD/test_data/df_1_aotizhongxin.csv"
+fname = "E:/KDD/test_data/df_10_fengtaihuayuan_aq.csv"
 dataset = pd.read_csv(fname, header = 0, index_col = 0)
 
 # gen num list
@@ -24,7 +24,6 @@ for y in range(0, 8):
             count = count + 1
     num_list.append(count)
     count = 0
-print(num_list)
 
 if num_list[0] != values.shape[0]:
     print('Warning!!! stationId is ' + str(num_list[0]) + '\t' + 'not equal to the len of dataframe' + str(values.shape[0]) + '\n')
@@ -46,16 +45,29 @@ dataset_dropna = dataset[dataset[col_name_max] == dataset[col_name_max]]
 df_index = dataset_dropna.iloc[:, [0, 1]]
 df_data = dataset_dropna.iloc[:, 2:8]
 
+# gen num list again for new dataframe (df_data)
+drop_values = df_data.values
+
+drop_num_list = []
+new_cnt = 0
+for n in range(0, 6):
+    for m in range(0, drop_values.shape[0]):
+        if drop_values[m, n] == drop_values[m, n]:
+            new_cnt = new_cnt + 1
+    drop_num_list.append(new_cnt)
+    new_cnt = 0
+
 # gen parameter
 col_x = [col_name_max]
 index_col_x = [index_max]
 
-temp_list = num_list[2:8]
+temp_list = drop_num_list.copy()
 temp_list.sort(reverse = True)
 order_list = []
 for num in temp_list:
-    order_list.append(data_num_list.index(num))
+    order_list.append(drop_num_list.index(num))
 order = order_list[1:6]
+print(order)
 
 for i in order:
     # gen y
@@ -88,7 +100,7 @@ for i in order:
 
 df = pd.concat([df_index, df_data], axis = 1)
 print(df.info())
-df.to_csv("E:/KDD/test_data/df_aoti_nan_deal.csv")
+df.to_csv("E:/KDD/test_data/df_fengtaihuayuan.csv")
 
 
 
