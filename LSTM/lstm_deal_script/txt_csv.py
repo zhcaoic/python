@@ -8,7 +8,7 @@ Created on Tue Mar 20 14:06:16 2018
 def formatConvert(filename):
     f = open(filename, "r")
     line = f.readline()
-    csvname = "D:/python_workspace/LSTM/data_100.csv"
+    csvname = "D:/python_workspace/SF/predict_test_data/test_data.csv"
     fcsv = open(csvname, "w")
     while line:
         items = line.split("\t")
@@ -23,5 +23,5 @@ def formatConvert(filename):
     f.close()
     fcsv.close()
     
-formatConvert("D:/python_workspace/LSTM/data_sum_100.txt")
+formatConvert("D:/python_workspace/SF/predict_test_data/test_data.txt")
     
